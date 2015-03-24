@@ -1,17 +1,16 @@
 'use strict';
 
-let chai,
-    expect,
-    nock,
-    request;
-
-chai = require('chai');
-expect = chai.expect;
-nock = require('nock');
-request = require('../src/main.js');
+let chai = require('chai'),
+    expect = chai.expect,
+    nock = require('nock');
 
 describe('request', () => {
+    let request;
+
     beforeEach(() => {
+        request = require('../src/main.js');
+
+        nock.cleanAll();
         nock.disableNetConnect();
     });
 
@@ -127,6 +126,29 @@ describe('request', () => {
                 await request('http://gajus.com/', {headers: {foo: 'bar'}});
 
                 expect(nrequest.isDone()).to.equal(true);
+            });
+        });
+
+        describe('request(url, {cookieJar})', () => {
+            it('establishes a cookieJar', async () => {
+                nock('http://gajus.com')
+                    .get('/set-cookie')
+                    .reply(200, '', {
+                        'set-cookie': 'foo=bar'
+                    });
+
+                nock('http://gajus.com')
+                    .matchHeader('cookie', 'foo=bar')
+                    .get('/use-cookie')
+                    .reply(200);
+
+                request = request.defaults({
+                    cookieJar: true,
+                    //proxy: 'http://127.0.0.1:8080/'
+                });
+
+                await request('http://gajus.com/set-cookie');
+                await request('http://gajus.com/use-cookie');
             });
         });
 

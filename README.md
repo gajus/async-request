@@ -29,7 +29,12 @@ try {
         headers: {
             foo: 'bar'
         },
-        proxy: 'http://127.0.0.1:8000'
+        proxy: 'http://127.0.0.1:8000',
+        // To create a new cookie jar.
+        cookieJar: true,
+        // To use a custom/existing cookie jar.
+        // https://www.npmjs.com/package/tough-cookie
+        cookieJar: new tough.CookieJar()
     });
 } catch (e) {
 

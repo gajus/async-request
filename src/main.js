@@ -4,16 +4,20 @@ let Arequest,
     request = require('request'),
     _ = require('lodash');
 
+request.debug = false;
+
 Arequest = (defaultOptions) => {
     let arequest;
+
+    Arequest.validateOptions(defaultOptions);
 
     arequest = async (url, options) => {
         return new Promise((resolve) => {
             Arequest.validateOptions(options);
 
-            options = Arequest.mapOptions(options);
+            options = _.assign({url: url}, options, defaultOptions);
 
-            options = _.assign({url: url}, options);
+            options = Arequest.mapOptions(options);
 
             request(options, (error, response) => {
                 if (error) {
@@ -34,12 +38,19 @@ Arequest = (defaultOptions) => {
             return defaultOptions;
         }
 
+        if (options.cookieJar === true) {
+            options.cookieJar = request.jar();
+        }
+
         return Arequest(options);
     };
 
     return arequest;
 };
 
+/**
+ *
+ */
 Arequest.validateOptions = (options) => {
     let unknownOption;
 
@@ -47,7 +58,7 @@ Arequest.validateOptions = (options) => {
         return;
     }
 
-    unknownOption = _.first(_.difference(_.keys(options), ['method', 'data', 'headers', 'proxy']));
+    unknownOption = _.first(_.difference(_.keys(options), ['method', 'data', 'headers', 'proxy', 'cookieJar', 'cookieJar2']));
 
     if (unknownOption) {
         throw new Error('Unknown option ("' + unknownOption + '").');
@@ -70,6 +81,12 @@ Arequest.mapOptions = (options) => {
         options.form = options.data;
 
         delete options.data;
+    }
+
+    if (options.cookieJar) {
+        options.jar = options.cookieJar;
+
+        delete options.cookieJar;
     }
 
     return options;

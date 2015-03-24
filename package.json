@@ -34,6 +34,7 @@
   },
   "dependencies": {
     "lodash": "^3.5.0",
-    "request": "^2.53.0"
+    "request": "^2.53.0",
+    "tough-cookie": "^0.12.1"
   }
 }
