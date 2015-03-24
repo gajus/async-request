@@ -9,7 +9,25 @@ async-request is a wrapper for [request](https://www.npmjs.com/package/request) 
 ## Usage
 
 ```js
-// ...
+let request = require('async-request'),
+    response;
+
+try {
+    response = await request('http://gajus.com/');
+
+    // response.statusCode
+    // response.body
+
+    await request({
+        url: 'http://gajus.com',
+        method: 'POST',
+        data: {
+            foo: 'bar'
+        }
+    });
+} catch (e) {
+
+}
 ```
 
 ## Running

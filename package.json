@@ -30,5 +30,8 @@
     "gulp-mocha": "^2.0.0",
     "gulp-sourcemaps": "^1.5.1",
     "mocha": "^2.2.1"
+  },
+  "dependencies": {
+    "request": "^2.53.0"
   }
 }
