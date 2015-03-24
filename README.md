@@ -34,6 +34,16 @@ try {
 } catch (e) {
 
 }
+
+// Returns a wrapper for the request using predefined custom options.
+request = request.defaults({headers: {foo: 'bar'}});
+
+// Returns the current default options.
+request.defaults();
+// {foo: 'bar'}
+
+// Makes a HTTP GET request with {foo: 'bar'} headers.
+await request('http://gajus.com');
 ```
 
 ## Debugging

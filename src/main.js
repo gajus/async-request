@@ -1,30 +1,43 @@
 'use strict';
 
-let Arequest = {},
-    arequest,
+let Arequest,
     request = require('request'),
     _ = require('lodash');
 
-arequest = async (url, options) => {
-    return new Promise((resolve) => {
-        Arequest.validateOptions(options);
+Arequest = (defaultOptions) => {
+    let arequest;
 
-        options = Arequest.mapOptions(options);
+    arequest = async (url, options) => {
+        return new Promise((resolve) => {
+            Arequest.validateOptions(options);
 
-        options = _.assign({url: url}, options);
+            options = Arequest.mapOptions(options);
 
-        request(options, (error, response) => {
-            if (error) {
-                throw new Error(error);
-            }
+            options = _.assign({url: url}, options);
 
-            resolve({
-                statusCode: response.statusCode,
-                headers: response.headers,
-                body: response.body
+            request(options, (error, response) => {
+                if (error) {
+                    throw new Error(error);
+                }
+
+                resolve({
+                    statusCode: response.statusCode,
+                    headers: response.headers,
+                    body: response.body
+                });
             });
         });
-    });
+    };
+
+    arequest.defaults = (options) => {
+        if (!options) {
+            return defaultOptions;
+        }
+
+        return Arequest(options);
+    };
+
+    return arequest;
 };
 
 Arequest.validateOptions = (options) => {
@@ -62,4 +75,4 @@ Arequest.mapOptions = (options) => {
     return options;
 };
 
-module.exports = arequest;
+module.exports = Arequest({});

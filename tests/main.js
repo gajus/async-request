@@ -134,4 +134,53 @@ describe('request', () => {
             // nock does not allow testing proxy.
         });
     });
+
+    describe('request.defauls()', () => {
+        it('returns the current default options', () => {
+            expect(request.defaults()).to.deep.equal({});
+
+            request = request.defaults({headers: {foo: 'bar'}});
+
+            expect(request.defaults()).to.deep.equal({headers: {foo: 'bar'}});
+        });
+    });
+
+    describe('request.defauls({})', () => {
+        it('returns a wrapper around the normal request API with predefined default options', async () => {
+            let nrequest;
+
+            request = request.defaults({headers: {foo: 'bar'}});
+
+            nrequest = nock('http://gajus.com')
+                .matchHeader('foo', 'bar')
+                .get('/')
+                .reply(200);
+
+            await request('http://gajus.com/', {headers: {foo: 'bar'}});
+
+            expect(nrequest.isDone()).to.equal(true);
+        });
+        it('does not affect the original instance', async () => {
+            let nrequest;
+
+            request.defaults({method: 'POST'});
+
+            nrequest = nock('http://gajus.com')
+                .get('/')
+                .reply(200, '');
+
+            await request('http://gajus.com/');
+
+            expect(nrequest.isDone()).to.equal(true);
+        });
+        it('overwrites existing defaults', () => {
+            request = request.defaults({headers: {foo: 'bar'}});
+
+            expect(request.defaults()).to.deep.equal({headers: {foo: 'bar'}});
+
+            request = request.defaults({method: 'POST'});
+
+            expect(request.defaults()).to.deep.equal({method: 'POST'});
+        });
+    });
 });
