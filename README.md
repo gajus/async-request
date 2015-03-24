@@ -21,6 +21,7 @@ try {
 
     await request('http://gajus.com', {
         // This example demonstrates all of the supported options.
+        // Request method (uppercase): POST, DELETE, ...
         method: 'POST',
         data: {
             foo: 'bar'
