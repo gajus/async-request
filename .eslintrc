@@ -25,7 +25,8 @@
         "no-lonely-if": 2,
         "no-multiple-empty-lines": 2,
         "no-nested-ternary": 2,
-        "one-var": 2,
+        // Does not make sense with let keyword.
+        // "one-var": 2,
         "operator-assignment": [2, "always"],
         "padded-blocks": [2, "never"],
         "quote-props": [2, "as-needed"],

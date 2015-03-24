@@ -16,6 +16,7 @@ try {
     response = await request('http://gajus.com/');
 
     // response.statusCode
+    // response.headers
     // response.body
 
     await request({
@@ -23,12 +24,23 @@ try {
         method: 'POST',
         data: {
             foo: 'bar'
+        },
+        headers: {
+            foo: 'bar'
         }
     });
 } catch (e) {
 
 }
 ```
+
+## Debugging
+
+`async-request` does not provide (expose) inbuilt debugging capabilities. Use a proxy (e.g. https://mitmproxy.org/) to intercept and analyze HTTP traffic.
+
+## API
+
+* Make sure API is based on https://fetch.spec.whatwg.org/ standard.
 
 ## Running
 
