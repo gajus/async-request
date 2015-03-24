@@ -19,8 +19,7 @@ try {
     // response.headers
     // response.body
 
-    await request({
-        url: 'http://gajus.com',
+    await request('http://gajus.com', {
         method: 'POST',
         data: {
             foo: 'bar'
