@@ -34,7 +34,7 @@ Arequest.validateOptions = (options) => {
         return;
     }
 
-    unknownOption = _.first(_.difference(_.keys(options), ['method', 'data', 'headers']));
+    unknownOption = _.first(_.difference(_.keys(options), ['method', 'data', 'headers', 'proxy']));
 
     if (unknownOption) {
         throw new Error('Unknown option ("' + unknownOption + '").');

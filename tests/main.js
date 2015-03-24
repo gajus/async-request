@@ -129,5 +129,9 @@ describe('request', () => {
                 expect(nrequest.isDone()).to.equal(true);
             });
         });
+
+        describe('request(url, {proxy})', () => {
+            // nock does not allow testing proxy.
+        });
     });
 });
