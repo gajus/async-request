@@ -20,6 +20,7 @@ try {
     // response.body
 
     await request('http://gajus.com', {
+        // This example demonstrates all of the supported options.
         method: 'POST',
         data: {
             foo: 'bar'
