@@ -21,7 +21,8 @@ Arequest = (defaultOptions) => {
 
             request(options, (error, response) => {
                 if (error) {
-                    throw new Error(error);
+                    reject(error);
+                    return;
                 }
 
                 resolve({
