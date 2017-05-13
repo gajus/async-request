@@ -4,6 +4,12 @@
 [![Travis build status](http://img.shields.io/travis/gajus/async-request/master.svg?style=flat)](https://travis-ci.org/gajus/async-request)
 [![Dependency Status](https://david-dm.org/gajus/async-request.svg?style=flat)](https://david-dm.org/gajus/async-request)
 
+## Deprecated
+
+Use either of the available and well maintained request libraries that implmenet Promise interface, e.g. https://github.com/joepie91/node-bhttp
+
+---
+
 async-request is a wrapper for [request](https://www.npmjs.com/package/request) that uses [ES7 async functions](https://github.com/lukehoban/ecmascript-asyncawait).
 
 ## Usage
