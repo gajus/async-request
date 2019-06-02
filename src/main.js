@@ -12,7 +12,7 @@ Arequest = (defaultOptions) => {
     Arequest.validateOptions(defaultOptions);
 
     arequest = async (url, options) => {
-        return new Promise((resolve) => {
+        return new Promise((resolve, reject) => {
             Arequest.validateOptions(options);
 
             options = _.assign({url: url}, options, defaultOptions);
@@ -21,14 +21,14 @@ Arequest = (defaultOptions) => {
 
             request(options, (error, response) => {
                 if (error) {
-                    throw new Error(error);
+                    reject(error)
+                } else {
+                    resolve({
+                        statusCode: response.statusCode,
+                        headers: response.headers,
+                        body: response.body
+                    });
                 }
-
-                resolve({
-                    statusCode: response.statusCode,
-                    headers: response.headers,
-                    body: response.body
-                });
             });
         });
     };
