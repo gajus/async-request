@@ -33,7 +33,7 @@
     "nock": "^1.2.1"
   },
   "dependencies": {
-    "lodash": "^3.5.0",
+    "lodash": "^4.17.15",
     "request": "^2.53.0",
     "tough-cookie": "^0.12.1"
   }
