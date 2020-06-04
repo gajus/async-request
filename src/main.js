@@ -64,7 +64,7 @@ Arequest.validateOptions = (options) => {
         throw new Error('Unknown option ("' + unknownOption + '").');
     }
 
-    if (options.method && _.indexOf(['GET', 'POST', 'PUT', 'HEAD', 'DELETE'], options.method) === -1) {
+    if (options.method && _.indexOf(['GET', 'POST', 'PUT', 'HEAD', 'DELETE', 'PATCH'], options.method) === -1) {
         throw new Error('Unknown option.method value ("' + options.method + '").');
     }
 };
